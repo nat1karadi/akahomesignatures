@@ -4,9 +4,9 @@ import { GarmentImage } from "@/components/GarmentImage";
 import { PRODUCTS } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "The Craft — MERROW",
+  title: "The Craft — Akahome Signatures",
   description:
-    "How a MERROW garment is made: fabric selection, cutting, stitching, fitting, finishing.",
+    "How an Akahome Signatures garment is made: fabric selection, cutting, stitching, fitting, finishing.",
 };
 
 const STEPS = [
@@ -52,7 +52,7 @@ export default function CraftPage() {
           <TextReveal text="not a single act." delay={0.15} />
         </h1>
         <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate">
-          MERROW keeps the whole making under one roof. From the bolt to the
+          Akahome Signatures keeps the whole making under one roof. From the bolt to the
           button, a piece passes through five hands and five stages — and we
           think the order is the point.
         </p>

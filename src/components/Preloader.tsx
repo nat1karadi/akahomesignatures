@@ -51,7 +51,7 @@ export function Preloader() {
           }}
         >
           <motion.span
-            className="font-display text-5xl tracking-tight text-ink md:text-7xl"
+            className="font-display text-4xl tracking-tight text-ink md:text-5xl"
             initial={
               reduce ? { opacity: 0 } : { clipPath: "inset(0 100% 0 0)" }
             }
@@ -60,7 +60,7 @@ export function Preloader() {
             }
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            MERROW
+            Akahome Signatures
           </motion.span>
 
           <motion.div

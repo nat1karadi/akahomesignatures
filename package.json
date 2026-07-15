@@ -2,7 +2,7 @@
   "name": "merrow",
   "version": "1.0.0",
   "private": true,
-  "description": "MERROW — made-to-measure tailoring house. Next.js e-commerce storefront.",
+  "description": "Akahome Signatures — made-to-measure tailoring house. Next.js e-commerce storefront.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

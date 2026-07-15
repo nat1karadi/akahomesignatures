@@ -45,7 +45,7 @@ export function Nav() {
           className="font-display text-2xl tracking-tight text-ink"
           data-cursor="Home"
         >
-          MERROW
+          Akahome Signatures
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">

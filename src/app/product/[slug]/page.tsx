@@ -13,9 +13,9 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const p = getProduct(params.slug);
-  if (!p) return { title: "Not found — MERROW" };
+  if (!p) return { title: "Not found — Akahome Signatures" };
   return {
-    title: `${p.name} — MERROW`,
+    title: `${p.name} — Akahome Signatures`,
     description: p.description,
   };
 }

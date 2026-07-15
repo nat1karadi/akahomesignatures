@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { BespokeForm } from "@/components/BespokeForm";
 
 export const metadata: Metadata = {
-  title: "Bespoke — MERROW",
+  title: "Bespoke — Akahome Signatures",
   description:
-    "Commission a made-to-measure garment from MERROW. Begin with a measurement.",
+    "Commission a made-to-measure garment from Akahome Signatures. Begin with a measurement.",
 };
 
 export default function ContactPage() {
@@ -17,7 +17,7 @@ export default function ContactPage() {
             Begin a commission
           </h1>
           <p className="mt-6 max-w-sm text-base leading-relaxed text-slate">
-            Every MERROW piece starts with a body and a conversation. Tell us
+            Every Akahome Signatures piece starts with a body and a conversation. Tell us
             what you have in mind and we will arrange your first fitting.
           </p>
           <div className="mt-10 space-y-3 border-t border-mist pt-6">

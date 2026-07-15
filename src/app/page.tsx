@@ -20,7 +20,7 @@ const PHRASES = [
   "Restrained silhouettes",
   "Basted by hand",
   "Cut once, worn for decades",
-  "The house of MERROW",
+  "The house of Akahome Signatures",
   "Selvedge edges",
   "Pattern paper & chalk",
 ];
@@ -39,7 +39,7 @@ export default function HomePage() {
             <TextReveal text="cut once." delay={0.2} />
           </h1>
           <p className="mt-8 max-w-md text-base leading-relaxed text-slate">
-            MERROW is a made-to-measure tailoring house. Every garment is cut
+            Akahome Signatures is a made-to-measure tailoring house. Every garment is cut
             from a single length of cloth and finished by one hand — no
             shortcuts sewn into the seam.
           </p>

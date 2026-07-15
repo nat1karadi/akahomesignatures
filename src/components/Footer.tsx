@@ -39,7 +39,7 @@ export function Footer() {
       <div className="mx-auto max-w-bolt px-5 py-16 md:px-10 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <p className="font-display text-3xl text-ink">MERROW</p>
+            <p className="font-display text-3xl text-ink">Akahome Signatures</p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate">
               A made-to-measure tailoring house. Immaculate seams, restrained
               silhouettes, obsessive construction.
@@ -104,7 +104,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-2 border-t border-mist pt-6 md:flex-row md:items-center md:justify-between">
-          <span className="spec">© MMXXV MERROW — ALL SEAMS RESERVED</span>
+          <span className="spec">© MMXXV Akahome Signatures — ALL SEAMS RESERVED</span>
           <span className="spec">CUT ONCE · WORN FOR DECADES</span>
         </div>
       </div>

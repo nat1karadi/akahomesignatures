@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CartView } from "@/components/CartView";
 
 export const metadata: Metadata = {
-  title: "Bag — MERROW",
+  title: "Bag — Akahome Signatures",
 };
 
 export default function CartPage() {

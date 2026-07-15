@@ -7,7 +7,7 @@ import { formatPrice } from "@/lib/format";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Order confirmed — MERROW",
+  title: "Order confirmed — Akahome Signatures",
 };
 
 interface Confirmation {
@@ -39,7 +39,7 @@ async function loadConfirmation(id: string): Promise<Confirmation> {
     });
     const items =
       session.line_items?.data.map((li) => ({
-        name: li.description ?? "MERROW piece",
+        name: li.description ?? "Akahome Signatures piece",
         qty: li.quantity ?? 1,
       })) ?? [];
     return {

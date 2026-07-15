@@ -11,9 +11,9 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { PageTransition } from "@/components/PageTransition";
 
 export const metadata: Metadata = {
-  title: "MERROW — Made-to-Measure Tailoring",
+  title: "Akahome Signatures — Made-to-Measure Tailoring",
   description:
-    "MERROW is a made-to-measure tailoring house. Immaculate seams, restrained silhouettes, obsessive attention to garment construction.",
+    "Akahome Signatures is a made-to-measure tailoring house. Immaculate seams, restrained silhouettes, obsessive attention to garment construction.",
 };
 
 export default function RootLayout({

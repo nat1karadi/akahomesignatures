@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ShopGrid } from "@/components/ShopGrid";
 
 export const metadata: Metadata = {
-  title: "Shop — MERROW",
-  description: "The MERROW collection: tailoring, shirting, trousers, outerwear.",
+  title: "Shop — Akahome Signatures",
+  description: "The Akahome Signatures collection: tailoring, shirting, trousers, outerwear.",
 };
 
 export default function ShopPage() {

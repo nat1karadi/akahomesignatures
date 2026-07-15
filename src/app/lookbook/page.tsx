@@ -4,8 +4,8 @@ import { GarmentImage } from "@/components/GarmentImage";
 import { getProduct } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Lookbook — MERROW",
-  description: "An editorial study of the MERROW house, in cloth and line.",
+  title: "Lookbook — Akahome Signatures",
+  description: "An editorial study of the Akahome Signatures house, in cloth and line.",
 };
 
 const SPREADS = [
