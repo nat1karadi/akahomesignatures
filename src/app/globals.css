@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #fafafa;
+  --chalk: #f2f2f0;
+  --mist: #e7e7e4;
+  --slate: #8a8d91;
+  --thread: #b8b6ae;
+  --ink: #16171a;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-feature-settings: "ss01", "cv01";
+  }
+
+  /* Visible keyboard focus everywhere (accessibility baseline). */
+  :focus-visible {
+    outline: 1.5px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* Quiet, considered scrollbar */
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--mist);
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  /* Mono "spec label" — the tailor's tag detail */
+  .spec {
+    @apply font-mono text-[11px] uppercase tracking-spec text-slate;
+  }
+
+  .rule {
+    @apply border-t border-mist;
+  }
+
+  /* A short hairline with a stitch dot, used as a section marker */
+  .seam-mark {
+    @apply flex items-center gap-3;
+  }
+  .seam-mark::before {
+    content: "";
+    @apply h-px w-8 bg-mist;
+  }
+}
+
+/* Lenis smooth-scroll required styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Custom cursor: hide the native cursor only when our cursor is active
+   (pointer + fine pointer, motion allowed). */
+@media (hover: hover) and (pointer: fine) {
+  body.cursor-dot,
+  body.cursor-dot * {
+    cursor: none !important;
+  }
+}
+
+/* Respect reduced motion: kill transforms/animations, keep simple fades. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+}
