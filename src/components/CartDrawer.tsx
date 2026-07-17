@@ -155,15 +155,15 @@ export function CartDrawer() {
                   </span>
                 </div>
                 <p className="mt-1 spec">
-                  Shipping &amp; duties calculated at checkout
+                  Price &amp; fitting confirmed over WhatsApp
                 </p>
                 <Link
                   href="/cart"
                   onClick={closeDrawer}
                   className="mt-4 block w-full bg-ink py-3 text-center font-mono text-[11px] uppercase tracking-spec text-paper"
-                  data-cursor="Checkout"
+                  data-cursor="Order"
                 >
-                  Proceed to checkout
+                  Review &amp; order
                 </Link>
               </div>
             )}

@@ -5,7 +5,7 @@ import { useCart } from "@/lib/cart-store";
 import { getProduct } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
 import { GarmentImage } from "./GarmentImage";
-import { CheckoutButton } from "./CheckoutButton";
+import { WhatsAppOrderForm } from "./WhatsAppOrderForm";
 
 export function CartView() {
   const { lines, remove, setQty } = useCart();
@@ -107,15 +107,10 @@ export function CartView() {
           <div className="flex items-center justify-between py-3">
             <span className="font-sans text-sm text-slate">Shipping</span>
             <span className="font-mono text-[11px] uppercase tracking-spec text-slate">
-              Calculated at checkout
+              Confirmed on order
             </span>
           </div>
-          <div className="border-t border-mist pt-4">
-            <CheckoutButton />
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-spec text-slate">
-              Secure payment via Stripe · You will be redirected to checkout
-            </p>
-          </div>
+          <WhatsAppOrderForm />
         </aside>
       </div>
     </div>
