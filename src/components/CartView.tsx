@@ -2,10 +2,25 @@
 
 import Link from "next/link";
 import { useCart } from "@/lib/cart-store";
+import { getProduct } from "@/lib/catalog";
+import { formatPrice } from "@/lib/format";
 import { GarmentImage } from "./GarmentImage";
 
 export function CartView() {
-  const { lines, subtotal, totalItems, updateQty, remove } = useCart();
+  const { lines, setQty, remove } = useCart();
+
+  // Resolve each line to its product. Lines whose product can't be found
+  // (e.g. removed since the bag was saved) are dropped from the totals.
+  const enriched = lines.flatMap((line) => {
+    const product = getProduct(line.slug);
+    return product ? [{ line, product }] : [];
+  });
+
+  const subtotal = enriched.reduce(
+    (sum, { line, product }) => sum + product.price * line.qty,
+    0
+  );
+  const totalItems = enriched.reduce((n, { line }) => n + line.qty, 0);
 
   if (lines.length === 0) {
     return (
@@ -36,22 +51,22 @@ export function CartView() {
       </header>
 
       <ul className="flex-1 overflow-y-auto space-y-4 pr-2">
-        {lines.map((line) => (
-          <li key={line.id} className="flex gap-4 pb-4 border-b border-mist last:border-0">
-            <Link href={`/product/${line.item.slug}`} className="flex-shrink-0 w-20 h-20 relative">
-              <GarmentImage item={line.item} className="w-full h-full" />
+        {enriched.map(({ line, product }) => (
+          <li key={`${line.slug}-${line.size}`} className="flex gap-4 pb-4 border-b border-mist last:border-0">
+            <Link href={`/product/${product.slug}`} className="flex-shrink-0 w-20 h-20 relative">
+              <GarmentImage product={product} variant="a" className="w-full h-full" />
             </Link>
             <div className="flex-1 min-w-0">
-              <Link href={`/product/${line.item.slug}`} className="font-display text-sm text-ink hover:text-ink/70 transition-colors block truncate">
-                {line.item.name}
+              <Link href={`/product/${product.slug}`} className="font-display text-sm text-ink hover:text-ink/70 transition-colors block truncate">
+                {product.name}
               </Link>
               <p className="font-mono text-[10px] uppercase tracking-spec text-slate mt-1">
-                {line.item.category} · {line.item.cloth}
+                {product.category} · {product.composition}
               </p>
               <div className="flex items-center gap-3 mt-3">
                 <div className="flex items-center border border-mist bg-paper">
                   <button
-                    onClick={() => updateQty(line.id, line.qty - 1)}
+                    onClick={() => setQty(line.slug, line.size, line.qty - 1)}
                     disabled={line.qty <= 1}
                     className="px-3 py-1.5 font-mono text-[11px] text-ink disabled:opacity-40 disabled:cursor-not-allowed hover:bg-mist transition-colors"
                     aria-label="Decrease quantity"
@@ -62,7 +77,7 @@ export function CartView() {
                     {line.qty}
                   </span>
                   <button
-                    onClick={() => updateQty(line.id, line.qty + 1)}
+                    onClick={() => setQty(line.slug, line.size, line.qty + 1)}
                     className="px-3 py-1.5 font-mono text-[11px] text-ink hover:bg-mist transition-colors"
                     aria-label="Increase quantity"
                   >
@@ -70,14 +85,14 @@ export function CartView() {
                   </button>
                 </div>
                 <span className="font-mono text-sm text-ink ml-auto">
-                  ₦{(line.item.price * line.qty).toLocaleString()}
+                  {formatPrice(product.price * line.qty, product.currency)}
                 </span>
               </div>
             </div>
             <button
-              onClick={() => remove(line.id)}
+              onClick={() => remove(line.slug, line.size)}
               className="flex-shrink-0 p-2 text-slate/50 hover:text-ink hover:bg-mist rounded-lg transition-colors"
-              aria-label={`Remove ${line.item.name}`}
+              aria-label={`Remove ${product.name}`}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="3 6 5 6 21 6" />
@@ -91,15 +106,15 @@ export function CartView() {
       <footer className="border-t border-mist pt-6 mt-4 space-y-4">
         <div className="flex justify-between text-sm">
           <span className="text-slate">Subtotal</span>
-          <span className="font-mono text-ink">₦{subtotal.toLocaleString()}</span>
+          <span className="font-mono text-ink">{formatPrice(subtotal)}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-slate">Fitting & Delivery</span>
+          <span className="text-slate">Fitting &amp; Delivery</span>
           <span className="font-mono text-ink">To be confirmed</span>
         </div>
         <div className="flex justify-between text-lg font-display border-t border-mist pt-4">
           <span className="text-ink">Estimated Total</span>
-          <span className="font-mono text-ink">₦{subtotal.toLocaleString()}+</span>
+          <span className="font-mono text-ink">{formatPrice(subtotal)}+</span>
         </div>
         <p className="font-mono text-[10px] uppercase tracking-spec text-slate/70 text-center">
           No payment now · Price confirmed over WhatsApp before cutting

@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-store";
+import { getProduct } from "@/lib/catalog";
+import { formatPrice } from "@/lib/format";
+import type { CartLine } from "@/lib/types";
 import { whatsappLink, WHATSAPP_NUMBER, isWhatsAppConfigured } from "@/lib/whatsapp";
 
 export const dynamic = "force-dynamic";
@@ -73,30 +76,34 @@ function Textarea({ value, onChange, ...props }: React.TextareaHTMLAttributes<HT
   );
 }
 
-function OrderSummary({ lines, subtotal }: { lines: ReturnType<typeof useCart>["lines"]; subtotal: number }) {
+function OrderSummary({ lines, subtotal }: { lines: CartLine[]; subtotal: number }) {
   return (
     <aside className="border-l border-mist pl-8 hidden lg:block">
       <h3 className="font-display text-lg text-ink mb-6 pb-3 border-b border-mist">Order Summary</h3>
       <ul className="space-y-4 mb-6">
-        {lines.map((line) => (
-          <li key={line.id} className="flex gap-4">
+        {lines.map((line) => {
+          const p = getProduct(line.slug);
+          if (!p) return null;
+          return (
+          <li key={`${line.slug}-${line.size}`} className="flex gap-4">
             <div className="w-16 h-16 bg-chalk/50 relative overflow-hidden flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-br from-thread/20 via-transparent to-slate/10" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-display text-sm text-ink">{line.item.name}</p>
+              <p className="font-display text-sm text-ink">{p.name}</p>
               <p className="font-mono text-[11px] uppercase tracking-spec text-slate mt-0.5">
-                {line.item.category} · {line.item.cloth}
+                {p.category} · {p.composition}
               </p>
               <p className="font-mono text-sm text-ink mt-1">Qty: {line.qty}</p>
             </div>
           </li>
-        ))}
+          );
+        })}
       </ul>
       <div className="border-t border-mist pt-4 space-y-2">
         <div className="flex justify-between text-sm">
           <span className="text-slate">Subtotal</span>
-          <span className="font-mono text-ink">₦{subtotal.toLocaleString()}</span>
+          <span className="font-mono text-ink">{formatPrice(subtotal)}</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-slate">Fitting & Delivery</span>
@@ -104,7 +111,7 @@ function OrderSummary({ lines, subtotal }: { lines: ReturnType<typeof useCart>["
         </div>
         <div className="flex justify-between text-lg font-display border-t border-mist pt-3">
           <span className="text-ink">Estimated Total</span>
-          <span className="font-mono text-ink">₦{subtotal.toLocaleString()}+</span>
+          <span className="font-mono text-ink">{formatPrice(subtotal)}+</span>
         </div>
         <p className="font-mono text-[10px] uppercase tracking-spec text-slate/70 mt-2">
           No payment now · Price confirmed over WhatsApp before cutting
@@ -115,7 +122,11 @@ function OrderSummary({ lines, subtotal }: { lines: ReturnType<typeof useCart>["
 }
 
 export default function OrderPage() {
-  const { lines, subtotal, clear } = useCart();
+  const { lines, clear } = useCart();
+  const subtotal = lines.reduce((sum, l) => {
+    const p = getProduct(l.slug);
+    return sum + (p ? p.price * l.qty : 0);
+  }, 0);
   const [form, setForm] = useState<FormData>(emptyForm);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -147,7 +158,10 @@ export default function OrderPage() {
 
   function buildMessage() {
     const linesMsg = lines
-      .map((l, i) => `${i + 1}. ${l.item.name} — ${l.item.category}, ${l.item.cloth} × ${l.qty}`)
+      .map((l, i) => {
+        const p = getProduct(l.slug);
+        return `${i + 1}. ${p ? p.name : l.slug} — ${p ? p.category : ""}, ${p ? p.composition : ""} × ${l.qty}`;
+      })
       .join("\n");
     return (
       `NEW ORDER — AKAHOME SIGNATURES\n\n` +
@@ -157,7 +171,7 @@ export default function OrderPage() {
       (form.colour ? `Preferred colour: ${form.colour}\n` : "") +
       (form.address ? `Address: ${form.address}\n` : "") +
       `\nOrder:\n${linesMsg}\n` +
-      `\nSubtotal: ₦${subtotal.toLocaleString()}\n` +
+      `\nSubtotal: ${formatPrice(subtotal)}\n` +
       `Fitting & Delivery: To be confirmed\n\n` +
       (form.notes ? `Notes:\n${form.notes}\n\n` : "") +
       `— Sent from Akahome Signatures storefront`
@@ -331,30 +345,3 @@ export default function OrderPage() {
   );
 }
 
-function Input({ label, required, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label: string; required?: boolean }) {
-  return (
-    <div className="space-y-1.5">
-      <label htmlFor={props.id} className="block font-mono text-[10px] uppercase tracking-spec text-slate">
-        {label} {required && <span className="text-ink/50">*</span>}
-      </label>
-      <input
-        {...props}
-        className="w-full border border-mist bg-paper px-4 py-3.5 font-sans text-sm text-ink placeholder:text-slate/60 focus:border-ink focus:outline-none transition-colors"
-      />
-    </div>
-  );
-}
-
-function Textarea({ label, ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; className?: string }) {
-  return (
-    <div className={`space-y-1.5 ${props.className || ""}`}>
-      <label htmlFor={props.id} className="block font-mono text-[10px] uppercase tracking-spec text-slate">
-        {label}
-      </label>
-      <textarea
-        {...props}
-        className={`w-full border border-mist bg-paper px-4 py-3.5 font-sans text-sm text-ink placeholder:text-slate/60 focus:border-ink focus:outline-none transition-colors resize-y min-h-[100px] ${props.className || ""}`}
-      />
-    </div>
-  );
-}
