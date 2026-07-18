@@ -6,6 +6,13 @@ import type { Product } from "./types";
  * product copy + photography when available. Imagery in this build is rendered
  * as a duotone gradient + line-drawing silhouette (see GarmentSilhouette), so
  * nothing depends on a broken image URL.
+ *
+ * REAL PHOTOS: add two per product to enable the 3D flip-on-hover — a front
+ * and a back shot. Place files in /public/products (see the README there) and
+ * add `image` + `backImage` to the product, e.g.:
+ *     image: "/products/notch-blazer-front.jpg",
+ *     backImage: "/products/notch-blazer-back.jpg",
+ * See the (commented) example on the first product below.
  */
 export const PRODUCTS: Product[] = [
   {
@@ -24,6 +31,8 @@ export const PRODUCTS: Product[] = [
     sizes: ["36", "38", "40", "42", "44", "46"],
     duo: ["#ECECE8", "#D6D6D0"],
     related: ["double-blazer", "waistcoat", "basted-trouser"],
+    image: "/products/notch-blazer-front.webp",
+    backImage: "/products/notch-blazer-back.webp",
   },
   {
     slug: "basted-trouser",
@@ -41,6 +50,8 @@ export const PRODUCTS: Product[] = [
     sizes: ["28", "30", "32", "34", "36", "38"],
     duo: ["#E9E9E5", "#D2D2CC"],
     related: ["notch-blazer", "oxford-shirt", "waistcoat"],
+    image: "/products/basted-trouser-front.webp",
+    backImage: "/products/basted-trouser-back.webp",
   },
   {
     slug: "oxford-shirt",
@@ -58,6 +69,7 @@ export const PRODUCTS: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     duo: ["#EDEDEA", "#DADAD4"],
     related: ["formal-shirt", "basted-trouser", "notch-blazer"],
+    backImage: "/products/oxford-shirt-back.webp",
   },
   {
     slug: "overcoat",
@@ -75,6 +87,8 @@ export const PRODUCTS: Product[] = [
     sizes: ["36", "38", "40", "42", "44", "46"],
     duo: ["#E6E6E2", "#CECEC8"],
     related: ["notch-blazer", "car-coat", "waistcoat"],
+    image: "/products/overcoat-front.webp",
+    backImage: "/products/overcoat-back.webp",
   },
   {
     slug: "waistcoat",
@@ -92,6 +106,8 @@ export const PRODUCTS: Product[] = [
     sizes: ["36", "38", "40", "42", "44", "46"],
     duo: ["#EBEBE7", "#D4D4CE"],
     related: ["notch-blazer", "basted-trouser", "double-blazer"],
+    image: "/products/waistcoat-front.webp",
+    backImage: "/products/waistcoat-back.webp",
   },
   {
     slug: "camp-knit",
@@ -126,6 +142,7 @@ export const PRODUCTS: Product[] = [
     sizes: ["36", "38", "40", "42", "44", "46"],
     duo: ["#E8E8E4", "#D0D0CA"],
     related: ["notch-blazer", "waistcoat", "overcoat"],
+    image: "/products/double-blazer-front.webp",
   },
   {
     slug: "selvedge-jean",
@@ -160,6 +177,8 @@ export const PRODUCTS: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     duo: ["#EDEDEA", "#D9D9D3"],
     related: ["oxford-shirt", "notch-blazer", "waistcoat"],
+    image: "/products/formal-shirt-front.webp",
+    backImage: "/products/formal-shirt-back.webp",
   },
   {
     slug: "car-coat",
@@ -177,6 +196,8 @@ export const PRODUCTS: Product[] = [
     sizes: ["36", "38", "40", "42", "44", "46"],
     duo: ["#E6E6E2", "#CDCDC7"],
     related: ["overcoat", "notch-blazer", "camp-knit"],
+    image: "/products/car-coat-front.webp",
+    backImage: "/products/car-coat-back.webp",
   },
 ];
 

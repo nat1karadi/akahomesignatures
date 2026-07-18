@@ -3,11 +3,12 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
-import { GarmentImage } from "./GarmentImage";
+import { ProductFlipImage } from "./ProductFlipImage";
 
 /**
- * Product card. Hover crossfades to an alternate "frame" of the placeholder
- * imagery, lifts with a soft shadow and a 1.03 scale (transform/opacity only).
+ * Product card. On hover (or tap on touch) the image flips over on its Y axis
+ * to reveal a second photo — a true 3D rotation. The card also lifts with a
+ * soft 1.03 scale (transform-only). Card text stays static.
  */
 export function ProductCard({
   product,
@@ -24,16 +25,9 @@ export function ProductCard({
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-chalk">
         <div className="absolute inset-0 transition-transform duration-700 ease-thread group-hover:scale-[1.03]">
-          <GarmentImage
-            product={product}
-            variant="a"
-            className="transition-opacity duration-500 group-hover:opacity-0"
-          />
-          <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-            <GarmentImage product={product} variant="b" />
-          </div>
+          <ProductFlipImage product={product} />
         </div>
-        <span className="spec absolute right-3 top-3 text-ink/45">
+        <span className="spec pointer-events-none absolute right-3 top-3 z-10 text-ink/45">
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>

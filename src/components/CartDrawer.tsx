@@ -158,7 +158,7 @@ export function CartDrawer() {
                   Price &amp; fitting confirmed over WhatsApp
                 </p>
                 <Link
-                  href="/cart"
+                  href="/order/new"
                   onClick={closeDrawer}
                   className="mt-4 block w-full bg-ink py-3 text-center font-mono text-[11px] uppercase tracking-spec text-paper"
                   data-cursor="Order"
